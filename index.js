@@ -19,11 +19,25 @@ app.use(express.json());
 app.use(cookieParser());
 
 //cors policy
-const corsOptions ={
-    origin:"http://localhost:3000",
-    credentials:true
-}
-app.use(cors(corsOptions));
+// const corsOptions ={
+//     origin:"http://localhost:3000",
+//     credentials:true
+// }
+// app.use(cors(corsOptions));
+
+
+
+const allowedOrigins = ["https://tpc-frontend-omega.vercel.app", "https://tpc-frontend-omega.vercel.app/login"];
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true, // Allow cookies if needed
+}));
 
 app.use("/api/v1/user",userRoute);
 app.use("/api/v1/tweet", tweetRoute);
