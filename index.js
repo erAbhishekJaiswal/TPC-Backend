@@ -18,6 +18,13 @@ app.use(express.urlencoded({
 app.use(express.json());
 app.use(cookieParser());
 
+const corsOptions = {
+    origin: "https://tpc-frontend-omega.vercel.app", // Replace with your frontend URL
+    methods: ["GET", "POST", "PUT", "DELETE"], // Allowed methods
+    allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
+  };
+app.use(cors(corsOptions));
+
 //cors policy
 // const corsOptions ={
 //     origin:"http://localhost:3000",
@@ -25,19 +32,19 @@ app.use(cookieParser());
 // }
 // app.use(cors(corsOptions));
 
-app.use(cors());
+// app.use(cors());
 
-const allowedOrigins = ["https://tpc-frontend-omega.vercel.app", "https://tpc-frontend-omega.vercel.app/login","http://localhost:3000/login","http://localhost:3000"];
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true, // Allow cookies if needed
-}));
+// const allowedOrigins = ["https://tpc-frontend-omega.vercel.app", "https://tpc-frontend-omega.vercel.app/login","http://localhost:3000/login","http://localhost:3000"];
+// app.use(cors({
+//   origin: (origin, callback) => {
+//     if (!origin || allowedOrigins.includes(origin)) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error("Not allowed by CORS"));
+//     }
+//   },
+//   credentials: true, // Allow cookies if needed
+// }));
 
 app.use("/api/v1/user",userRoute);
 app.use("/api/v1/tweet", tweetRoute);
