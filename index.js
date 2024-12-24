@@ -25,9 +25,9 @@ app.use(cookieParser());
 // }
 // app.use(cors(corsOptions));
 
+app.use(cors());
 
-
-const allowedOrigins = ["https://tpc-frontend-omega.vercel.app", "https://tpc-frontend-omega.vercel.app/login"];
+const allowedOrigins = ["https://tpc-frontend-omega.vercel.app", "https://tpc-frontend-omega.vercel.app/login","http://localhost:3000/login","http://localhost:3000"];
 app.use(cors({
   origin: (origin, callback) => {
     if (!origin || allowedOrigins.includes(origin)) {
