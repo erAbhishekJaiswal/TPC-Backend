@@ -32,7 +32,7 @@ app.use(cors(corsOptions));
 // }
 // app.use(cors(corsOptions));
 
-// app.use(cors());
+app.use(cors());
 
 // const allowedOrigins = ["https://tpc-frontend-omega.vercel.app", "https://tpc-frontend-omega.vercel.app/login","http://localhost:3000/login","http://localhost:3000"];
 // app.use(cors({
@@ -59,8 +59,10 @@ app.get('/',(req,res)=>{
 //     message:"coming from backend!"
 // })
 // })
-app.listen(process.env.PORT ,()=>{
-    console.log(`Server Liseten on Port ${process.env.PORT}`);
+const port = process.env.PORT || 5000
+
+app.listen(port ,()=>{
+    console.log(`Server Liseten on Port ${port}`);
 }
 
 )

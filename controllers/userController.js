@@ -1,5 +1,6 @@
 import { User } from "../models/userSchema.js";
-import bcryptjs from "bcryptjs";
+import bcrypt from "bcryptjs";
+// const bcrypt = require('bcryptjs');
 import  jwt  from "jsonwebtoken";
 
 //api for register
@@ -20,7 +21,8 @@ try {
             success:false
         })
     }
-    const hashedPassword= await bcryptjs.hash(password,16);
+    // const hashedPassword= await bcryptjs.hash(password,16);
+    const hashedPassword = await bcrypt.hash(password, 10);
     await User.create({
         name,
         username,
@@ -53,20 +55,34 @@ export const Login = async(req,res)=>{
             success:false
             })
         }
-        const isMatch = await bcryptjs.compare(password,user.password)
+
+        // const isMatch = await bcryptjs.compare(password,user.password)
+        const isMatch = await bcrypt.compare(password, user.password);
         if(!isMatch){
             return res.status(401).json({
             message:"incorrect email or password ",
             success:false
             })
         }
+        // return res.status(200).json({
+        //     message:`Welcome Back ${user.name}`,
+        //     user:user,
+        //     success:true
+        // })
+
         const tokenData ={
                 userId : user._id
         }
         const token = await jwt.sign(tokenData,process.env.TOKEN_SECRET,{expiresIn:"1d"});
         return res.status(201).cookie("token",token,{expiresIn:"1d",httpOnly:true}).json({
             message:`Welcome Back ${user.name}`,
-            user,
+            user:{
+                token:token,
+                userId:user._id,
+                name:user.name,
+                username:user.username,
+                email:user.email
+            },
             success:true
         })
     } catch (error) {
