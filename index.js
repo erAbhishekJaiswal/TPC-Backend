@@ -18,12 +18,19 @@ app.use(express.urlencoded({
 app.use(express.json());
 app.use(cookieParser());
 
+// const corsOptions = {
+//     origin: "https://tpc-frontend-omega.vercel.app", // Replace with your frontend URL
+//     methods: ["GET", "POST", "PUT", "DELETE"], // Allowed methods
+//     allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
+//   };
+// app.use(cors(corsOptions));
+
 const corsOptions = {
-    origin: "https://tpc-frontend-omega.vercel.app", // Replace with your frontend URL
-    methods: ["GET", "POST", "PUT", "DELETE"], // Allowed methods
-    allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
+    origin: 'https://tpc-frontend-omega.vercel.app', // Replace with your frontend URL
+    credentials: true, // Allow credentials (cookies, HTTP auth)
   };
-app.use(cors(corsOptions));
+  
+  app.use(cors(corsOptions));
 
 //cors policy
 // const corsOptions ={
