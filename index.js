@@ -22,6 +22,7 @@ const corsOptions = {
     origin: "https://tpc-frontend-omega.vercel.app", // Replace with your frontend URL
     methods: ["GET", "POST", "PUT", "DELETE"], // Allowed methods
     allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
+    credentials: true, // Allow credentials (cookies, HTTP authentication)
   };
 app.use(cors(corsOptions));
 
